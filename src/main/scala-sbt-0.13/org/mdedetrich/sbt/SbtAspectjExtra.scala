@@ -1,7 +1,6 @@
-package com.lightbend.sbt
+package org.mdedetrich.sbt
 
 import sbt._
-import sbt.io.Path
 
 object SbtAspectjExtra {
   def copyResources(
@@ -10,11 +9,11 @@ object SbtAspectjExtra {
       resourceMappings: Seq[(File, File)],
       aspectjClassDir: File,
       taskStreams: Keys.TaskStreams): Seq[(File, File)] = {
-    val cacheStore = taskStreams.cacheStoreFactory make "aspectj-resource-sync"
+    val cacheFile = taskStreams.cacheDirectory / "aspectj-resource-sync"
     val mapped = if (ajcInputs contains compileClassDir) {
-      resourceMappings map (_._2) pair Path.rebase(compileClassDir, aspectjClassDir)
+      resourceMappings map (_._2) pair rebase(compileClassDir, aspectjClassDir)
     } else Seq.empty
-    Sync(cacheStore)(mapped)
+    Sync(cacheFile)(mapped)
     mapped
   }
 }

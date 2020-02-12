@@ -1,10 +1,10 @@
-val Organization = "com.lightbend.sbt.aspectj.sample.external"
+val Organization = "org.mdedetrich.sbt.aspectj.sample.external"
 val Version = "0.1-SNAPSHOT"
 
 lazy val buildSettings = Seq(
   organization := Organization,
   version := Version,
-  scalaVersion := "2.12.1"
+  scalaVersion := "2.12.10"
 )
 
 lazy val sample = (project in file("."))

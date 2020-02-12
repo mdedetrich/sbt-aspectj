@@ -1,8 +1,8 @@
-import com.lightbend.sbt.SbtAspectj.aspectjUseInstrumentedClasses
+import org.mdedetrich.sbt.SbtAspectj.aspectjUseInstrumentedClasses
 
-organization := "com.lightbend.sbt.aspectj"
+organization := "org.mdedetrich.sbt.aspectj"
 version := "0.1-SNAPSHOT"
-scalaVersion := "2.12.1"
+scalaVersion := "2.12.10"
 
 enablePlugins(SbtAspectj)
 

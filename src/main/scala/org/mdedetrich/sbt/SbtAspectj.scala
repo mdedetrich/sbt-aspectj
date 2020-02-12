@@ -1,4 +1,4 @@
-package com.lightbend.sbt
+package org.mdedetrich.sbt
 
 import sbt._
 import sbt.Configurations.Compile
