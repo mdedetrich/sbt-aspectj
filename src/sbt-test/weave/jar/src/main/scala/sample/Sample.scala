@@ -14,10 +14,10 @@ class SampleActor extends Actor {
 
 object Sample extends App {
   val system = ActorSystem("sample")
-  val actor = system.actorOf(Props[SampleActor])
+  val actor  = system.actorOf(Props[SampleActor])
 
   implicit val timeout = Timeout(3.seconds)
-  val result = Await.result(actor ? "world", timeout.duration)
+  val result           = Await.result(actor ? "world", timeout.duration)
   println(result)
 
   system.terminate()

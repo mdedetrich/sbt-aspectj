@@ -17,7 +17,6 @@ lazy val tracer = (project in file("tracer"))
   .settings(
     // only compile the aspects (no weaving)
     aspectjCompileOnly in Aspectj := true,
-
     // add the compiled aspects as products
     products in Compile ++= (products in Aspectj).value
   )
@@ -29,21 +28,21 @@ lazy val woven = (project in file("woven"))
   .settings(
     // fork the run so that javaagent option can be added
     fork in run := true,
-
     // add the aspectj weaver javaagent option
     javaOptions in run ++= (aspectjWeaverOptions in Aspectj).value
-  ).dependsOn(inputs, tracer)
+  )
+  .dependsOn(inputs, tracer)
 
 // for sbt scripted test:
 TaskKey[Unit]("check") := {
   import scala.sys.process.Process
 
-  val cp = (fullClasspath in Compile in woven).value
-  val mc = (mainClass in Compile in woven).value
+  val cp   = (fullClasspath in Compile in woven).value
+  val mc   = (mainClass in Compile in woven).value
   val opts = (javaOptions in run in Compile in woven).value
 
   val expected = "Printing sample:\nhello\n"
-  val output = Process("java", opts ++ Seq("-classpath", cp.files.absString, mc getOrElse "")).!!
+  val output   = Process("java", opts ++ Seq("-classpath", cp.files.absString, mc getOrElse "")).!!
   if (output != expected) {
     println("Unexpected output:")
     println(output)

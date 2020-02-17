@@ -1,4 +1,3 @@
-
 organization := "org.mdedetrich.sbt.aspectj"
 version := "0.1-SNAPSHOT"
 scalaVersion := "2.12.10"
@@ -16,12 +15,12 @@ products in Runtime := (products in Compile).value
 TaskKey[Unit]("check") := {
   import scala.sys.process.Process
 
-  val cp = (fullClasspath in Compile).value
-  val mc = (mainClass in Compile).value
+  val cp   = (fullClasspath in Compile).value
+  val mc   = (mainClass in Compile).value
   val opts = (javaOptions in run in Compile).value
 
   val expected = "Printing sample:\nhello\n"
-  val output = Process("java", opts ++ Seq("-classpath", cp.files.absString, mc getOrElse "")).!!
+  val output   = Process("java", opts ++ Seq("-classpath", cp.files.absString, mc getOrElse "")).!!
   if (output != expected) {
     println("Unexpected output:")
     println(output)
